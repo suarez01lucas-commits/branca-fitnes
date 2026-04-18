@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BRANCA Fitness Club</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C9A227;
+      --gold-light: #E4B840;
+      --gold-dark: #A8861E;
+      --black: #0a0a0a;
+      --dark: #111111;
+      --card: #1a1a1a;
+      --white: #ffffff;
+      --gray: #888888;
+      --radius: 16px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(201,162,39,0.15);
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+    .logo-main {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      letter-spacing: 4px;
+      color: var(--gold);
+      text-shadow: 0 0 20px rgba(201,162,39,0.4), 2px 2px 4px rgba(0,0,0,0.8);
+    }
+    .logo-sub {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 5px;
+      color: var(--white);
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .hamburger {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: var(--white);
+      transition: all 0.3s;
+      border-radius: 2px;
+    }
+    .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile menu */
+    .mobile-menu {
+      position: fixed;
+      top: 65px; left: 0; right: 0; bottom: 0;
+      background: rgba(10,10,10,0.98);
+      z-index: 999;
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 700;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      letter-spacing: 1px;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--gold); }
+
+    /* ─── HERO ─── */
+    #inicio {
+      min-height: 100vh;
+      padding: 120px 24px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-subtitle {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 5px;
+      color: var(--gray);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 14vw, 80px);
+      line-height: 0.95;
+      color: var(--gold);
+      text-shadow: 0 0 40px rgba(201,162,39,0.25);
+      margin-bottom: 24px;
+    }
+
+    .hero-desc {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--gray);
+      max-width: 400px;
+      margin-bottom: 32px;
+    }
+
+    .google-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--card);
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-bottom: 32px;
+    }
+    .google-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 900;
+      color: #4285F4;
+      flex-shrink: 0;
+    }
+    .google-badge-info { display: flex; flex-direction: column; gap: 2px; }
+    .google-badge-score {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .google-badge-score span:first-child {
+      font-weight: 800;
+      font-size: 17px;
+    }
+    .stars { color: #FBBC04; font-size: 14px; }
+    .reviews { font-size: 12px; color: var(--gray); }
+    .google-badge-name { font-size: 11px; font-weight: 700; color: var(--white); }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px 28px;
+      border-radius: 50px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.25s;
+    }
+    .btn-gold {
+      background: var(--gold);
+      color: #0a0a0a;
+    }
+    .btn-gold:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(201,162,39,0.4);
+    }
+    .btn-full { width: 100%; }
+
+    /* ─── SECTION TITLES ─── */
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 10vw, 52px);
+      color: var(--gold);
+      text-align: center;
+      letter-spacing: 4px;
+      margin-bottom: 8px;
+    }
+    .section-line {
+      width: 60px;
+      height: 3px;
+      background: var(--gold);
+      margin: 0 auto 48px;
+      border-radius: 2px;
+    }
+
+    /* ─── PLANES ─── */
+    #planes {
+      padding: 80px 24px;
+    }
+    .planes-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .plan-item {
+      margin-bottom: 56px;
+    }
+    .plan-image {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      margin-bottom: 24px;
+      display: block;
+    }
+    .plan-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .plan-desc {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--gray);
+      margin-bottom: 20px;
+    }
+    .plan-desc strong { color: var(--white); }
+
+    /* ─── MODALIDADES ─── */
+    #modalidades {
+      padding: 80px 24px;
+      background: var(--dark);
+    }
+
+    .modalidades-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .carousel-wrapper { position: relative; overflow: hidden; }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.4s ease;
+    }
+    .carousel-slide {
+      min-width: 100%;
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      height: 340px;
+    }
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .carousel-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 50%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 28px;
+    }
+    .carousel-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      letter-spacing: 3px;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .carousel-desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+    }
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .dot.active {
+      background: var(--gold);
+      width: 24px;
+      border-radius: 4px;
+    }
+    .carousel-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 12px;
+    }
+    .carousel-btn {
+      background: rgba(201,162,39,0.15);
+      border: 1px solid rgba(201,162,39,0.3);
+      color: var(--gold);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: all 0.2s;
+    }
+    .carousel-btn:hover { background: var(--gold); color: var(--black); }
+
+    /* ─── SOBRE BRANCA ─── */
+    #sobre {
+      background: var(--gold);
+      padding: 80px 24px;
+    }
+    #sobre .section-title { color: var(--black); }
+    #sobre .section-line { background: var(--black); }
+
+    .stats-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .stat-card {
+      background: var(--dark);
+      border-radius: var(--radius);
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 56px;
+      color: var(--gold);
+      letter-spacing: 2px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-label {
+      font-size: 14px;
+      color: var(--gray);
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+
+    /* ─── SUCURSAL ─── */
+    #ubicacion {
+      padding: 80px 24px;
+    }
+
+    .sucursal-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .sucursal-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .sucursal-info {
+      padding: 24px;
+    }
+    .sucursal-name {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .sucursal-detail {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--gray);
+      margin-bottom: 8px;
+    }
+    .sucursal-detail svg { flex-shrink: 0; }
+
+    .map-container {
+      margin-top: 20px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      height: 260px;
+    }
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* ─── HORARIOS ─── */
+    #horarios {
+      padding: 80px 24px;
+      background: var(--dark);
+    }
+
+    .schedule-table-wrapper {
+      overflow-x: auto;
+      border-radius: var(--radius);
+    }
+    .schedule-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 420px;
+      font-size: 12px;
+    }
+    .schedule-table th {
+      background: rgba(201,162,39,0.15);
+      color: var(--gold);
+      padding: 12px 10px;
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: 1px;
+      font-size: 11px;
+      border-bottom: 2px solid rgba(201,162,39,0.3);
+    }
+    .schedule-table th:first-child {
+      text-align: left;
+      color: var(--white);
+    }
+    .schedule-table td {
+      padding: 11px 10px;
+      text-align: center;
+      color: var(--gray);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-weight: 500;
+    }
+    .schedule-table td:first-child {
+      color: var(--white);
+      font-weight: 700;
+      text-align: left;
+      white-space: nowrap;
+    }
+    .schedule-table tr:hover td { background: rgba(255,255,255,0.03); }
+    .class-chip {
+      display: inline-block;
+      background: rgba(201,162,39,0.12);
+      color: var(--gold);
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    /* ─── CONTACTO ─── */
+    #contacto {
+      padding: 80px 24px;
+    }
+
+    .contact-intro {
+      text-align: center;
+      font-size: 15px;
+      color: var(--gray);
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    .contact-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .contact-card-name {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .contact-card-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--gray);
+      margin-bottom: 8px;
+    }
+    .contact-card-line svg { color: var(--gold); flex-shrink: 0; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #050505;
+      padding: 48px 24px 32px;
+      border-top: 1px solid rgba(201,162,39,0.15);
+    }
+    .footer-logo {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .footer-logo .logo-main { font-size: 28px; }
+
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .footer-social a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 1px solid rgba(201,162,39,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .footer-social a:hover { background: var(--gold); color: var(--black); border-color: var(--gold); }
+
+    .footer-links-title {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 20px;
+      margin-bottom: 32px;
+    }
+    .footer-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-clases-title {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .footer-clases {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 20px;
+      margin-bottom: 32px;
+    }
+    .footer-clases span {
+      color: var(--gray);
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    .footer-copy {
+      text-align: center;
+      font-size: 11px;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 1px;
+    }
+
+    /* ─── WHATSAPP FLOAT ─── */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 999;
+      width: 56px;
+      height: 56px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      text-decoration: none;
+      transition: transform 0.2s;
+    }
+    .whatsapp-float:hover { transform: scale(1.1); }
+
+    /* ─── UTILITIES ─── */
+    section { scroll-margin-top: 65px; }
+
+    @media (min-width: 768px) {
+      #inicio { padding: 140px 48px 80px; }
+      .hero-title { font-size: 96px; }
+      #planes { padding: 100px 48px; }
+      #modalidades { padding: 100px 48px; }
+      #sobre { padding: 100px 48px; }
+      #ubicacion { padding: 100px 48px; }
+      #horarios { padding: 100px 48px; }
+      #contacto { padding: 100px 48px; }
+
+      .planes-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+      }
+      .plan-item { margin-bottom: 0; }
+
+      .stats-grid {
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+      }
+      .stat-card { flex: 1; max-width: 240px; }
+
+      .carousel-slide { height: 420px; }
+    }
+
+    @media (min-width: 1024px) {
+      #inicio { padding: 160px 80px 100px; max-width: 1200px; margin: 0 auto; }
+      #planes { max-width: 1200px; margin: 0 auto; }
+      .planes-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <img src="PHOTO-2026-04-17-20-46-40.jpg" alt="BRANCA Fitness Club" style="height:48px; width:auto; object-fit:contain;" />
+  <button class="hamburger" id="hamburger" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- MOBILE MENU -->
+<nav class="mobile-menu" id="mobileMenu">
+  <a href="#inicio" onclick="closeMenu()">Inicio</a>
+  <a href="#planes" onclick="closeMenu()">Planes</a>
+  <a href="#modalidades" onclick="closeMenu()">Modalidades</a>
+  <a href="#ubicacion" onclick="closeMenu()">Ubicación</a>
+  <a href="#horarios" onclick="closeMenu()">Horarios</a>
+  <a href="#sobre" onclick="closeMenu()">Sobre Nosotros</a>
+  <a href="#contacto" onclick="closeMenu()">Contacto</a>
+</nav>
+
+<!-- HERO -->
+<section id="inicio">
+  <p class="hero-subtitle">Transformá tu vida</p>
+  <h1 class="hero-title">ENTRENÁ<br>SIN<br>LÍMITES</h1>
+  <p class="hero-desc">Gimnasio y centro de fitness en Montevideo. Musculación, entrenamiento funcional, deportivo, nutrición y fisioterapia. Un equipo que te acompaña en cada etapa.</p>
+
+  <div class="google-badge">
+    <div class="google-icon">G</div>
+    <div class="google-badge-info">
+      <div class="google-badge-score">
+        <span>4.9</span>
+        <span class="stars">★★★★★</span>
+        <span class="reviews">13 reseñas</span>
+      </div>
+      <span class="google-badge-name">BRANCA Fitness Club</span>
+    </div>
+  </div>
+
+  <a href="https://wa.me/59897194546?text=Hola!%20Quiero%20agendar%20una%20clase%20de%20prueba" class="btn btn-gold" target="_blank" rel="noopener">
+    Agendar una clase de prueba
+  </a>
+</section>
+
+<!-- PLANES -->
+<section id="planes">
+  <div class="planes-header">
+    <h2 class="section-title">NUESTROS PLANES</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="planes-grid">
+
+    <div class="plan-item">
+      <img class="plan-image" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80" alt="Plan Básico" loading="lazy" />
+      <h3 class="plan-title">Plan Básico</h3>
+      <p class="plan-desc"><strong>El de siempre</strong>, que incluye circuitos y sala, con rutinas preestablecidas para que elijas trabajar <strong>Upper Body</strong>, <strong>Lower Body</strong> o <strong>Full Body</strong>.</p>
+      <a href="https://wa.me/59897194546?text=Hola!%20Me%20interesa%20el%20Plan%20Básico" class="btn btn-gold" target="_blank" rel="noopener">Empezar con este plan</a>
+    </div>
+
+    <div class="plan-item">
+      <img class="plan-image" src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80" alt="Personal Planning" loading="lazy" />
+      <h3 class="plan-title">Personal Planning</h3>
+      <p class="plan-desc">En este plan, el entrenamiento en sala varía periódicamente, y <strong>un profe se encargará de darte seguimiento</strong> semanal.</p>
+      <a href="https://wa.me/59897194546?text=Hola!%20Me%20interesa%20el%20Personal%20Planning" class="btn btn-gold" target="_blank" rel="noopener">Quiero seguimiento semanal</a>
+    </div>
+
+    <div class="plan-item">
+      <img class="plan-image" src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=800&q=80" alt="Personal Training" loading="lazy" />
+      <h3 class="plan-title">Personal Training</h3>
+      <p class="plan-desc">Con este plan, <strong>un entrenador personal te acompañará cada entrenamiento</strong> en sala para acompañar tu progreso.</p>
+      <a href="https://wa.me/59897194546?text=Hola!%20Me%20interesa%20el%20Personal%20Training" class="btn btn-gold" target="_blank" rel="noopener">Quiero entrenador personal</a>
+    </div>
+
+    <div class="plan-item">
+      <img class="plan-image" src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&q=80" alt="Plan Running" loading="lazy" />
+      <h3 class="plan-title">Plan Running</h3>
+      <p class="plan-desc">Sumate a un <strong>grupo de running</strong> para preparar tu próxima carrera o incluir esta práctica como parte de tu entrenamiento.</p>
+      <a href="https://wa.me/59897194546?text=Hola!%20Me%20interesa%20el%20Plan%20Running" class="btn btn-gold" target="_blank" rel="noopener">Unirme al grupo</a>
+    </div>
+
+    <div class="plan-item">
+      <img class="plan-image" src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=800&q=80" alt="The Prime Coaching" loading="lazy" />
+      <h3 class="plan-title">The Prime Coaching</h3>
+      <p class="plan-desc">3 meses de <strong>entrenamiento personalizado y acompañamiento nutricional</strong> para garantizar los resultados que buscás.</p>
+      <a href="https://wa.me/59897194546?text=Hola!%20Me%20interesa%20The%20Prime%20Coaching" class="btn btn-gold" target="_blank" rel="noopener">Quiero mi prime</a>
+    </div>
+
+    <div class="plan-item">
+      <img class="plan-image" src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&q=80" alt="Plan Nutricional" loading="lazy" />
+      <h3 class="plan-title">Plan Nutricional</h3>
+      <p class="plan-desc">Trabajá con <strong>Tina</strong>, nuestra nutricionista, que tiene un enfoque cercano, práctico y pensado para que cada uno pueda <strong>mejorar su relación con la comida sin complicarse la vida</strong>. Consultá presencial + plan personalizado + seguimiento semanal.</p>
+      <a href="https://wa.me/59897194546?text=Hola!%20Me%20interesa%20el%20Plan%20Nutricional%20con%20Tina" class="btn btn-gold" target="_blank" rel="noopener">Agendar con Tina</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- MODALIDADES -->
+<section id="modalidades">
+  <div class="modalidades-header">
+    <h2 class="section-title">MODALIDADES</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="carousel-wrapper">
+    <div class="carousel-track" id="carouselTrack">
+
+      <div class="carousel-slide">
+        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80" alt="Sala de Musculación" loading="lazy" />
+        <div class="carousel-overlay">
+          <div class="carousel-name">SALA DE MUSCULACIÓN</div>
+          <div class="carousel-desc">Equipamiento completo para entrenar fuerza y desarrollar tu físico</div>
+        </div>
+      </div>
+
+      <div class="carousel-slide">
+        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&q=80" alt="Entrenamiento Funcional" loading="lazy" />
+        <div class="carousel-overlay">
+          <div class="carousel-name">ENTRENAMIENTO FUNCIONAL</div>
+          <div class="carousel-desc">Movimientos naturales para mejorar tu rendimiento en la vida diaria</div>
+        </div>
+      </div>
+
+      <div class="carousel-slide">
+        <img src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&q=80" alt="Entrenamiento Deportivo" loading="lazy" />
+        <div class="carousel-overlay">
+          <div class="carousel-name">ENTRENAMIENTO DEPORTIVO</div>
+          <div class="carousel-desc">Preparación física específica para deportistas de cualquier disciplina</div>
+        </div>
+      </div>
+
+      <div class="carousel-slide">
+        <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&q=80" alt="Nutrición" loading="lazy" />
+        <div class="carousel-overlay">
+          <div class="carousel-name">NUTRICIÓN</div>
+          <div class="carousel-desc">Acompañamiento nutricional personalizado para potenciar tus resultados</div>
+        </div>
+      </div>
+
+      <div class="carousel-slide">
+        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80" alt="Fisioterapia" loading="lazy" />
+        <div class="carousel-overlay">
+          <div class="carousel-name">FISIOTERAPIA</div>
+          <div class="carousel-desc">Prevención y recuperación de lesiones para que nunca pares de entrenar</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="carousel-nav">
+      <button class="carousel-btn" id="prevBtn">&#8592;</button>
+      <div class="carousel-dots" id="carouselDots"></div>
+      <button class="carousel-btn" id="nextBtn">&#8594;</button>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE BRANCA -->
+<section id="sobre">
+  <h2 class="section-title">SOBRE BRANCA</h2>
+  <div class="section-line"></div>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-number">45+</div>
+      <div class="stat-label">Clases Semanales</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">5+</div>
+      <div class="stat-label">Años de Experiencia</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">1800+</div>
+      <div class="stat-label">Seguidores</div>
+    </div>
+  </div>
+</section>
+
+<!-- UBICACIÓN -->
+<section id="ubicacion">
+  <h2 class="section-title">NUESTRA UBICACIÓN</h2>
+  <div class="section-line"></div>
+  <div class="sucursal-card">
+    <img class="sucursal-img" src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&q=80" alt="BRANCA Fitness Club" loading="lazy" />
+    <div class="sucursal-info">
+      <div class="sucursal-name">BRANCA Fitness Club</div>
+      <div class="sucursal-detail">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Cerro Largo 1157 esq. Av. Libertador — a 400 mts de Av. 18 de Julio
+      </div>
+      <div class="sucursal-detail">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.7 19.79 19.79 0 0 1 1.61 5.07 2 2 0 0 1 3.58 3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10.9a16 16 0 0 0 6.16 6.16l.97-.97a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        097 194 546
+      </div>
+      <div class="map-container">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3272.5!2d-56.1914305!3d-34.9010523!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzTCsDU0JzAzLjgiUyA1NsKwMTEnMjkuMiJX!5e0!3m2!1ses!2suy!4v1000000000000"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="BRANCA Fitness Club ubicación"
+        ></iframe>
+      </div>
+      <br />
+      <a href="https://wa.me/59897194546?text=Hola!%20Quiero%20más%20información%20sobre%20BRANCA%20Fitness%20Club" class="btn btn-gold btn-full" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.123 1.531 5.858L0 24l6.302-1.516A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.794 9.794 0 0 1-4.964-1.348l-.356-.211-3.741.9.929-3.626-.232-.372A9.774 9.774 0 0 1 2.182 12c0-5.42 4.398-9.818 9.818-9.818 5.42 0 9.818 4.398 9.818 9.818 0 5.42-4.398 9.818-9.818 9.818z"/></svg>
+        Contactar por WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- HORARIOS -->
+<section id="horarios">
+  <h2 class="section-title">HORARIOS</h2>
+  <div class="section-line"></div>
+  <div class="schedule-table-wrapper">
+    <table class="schedule-table">
+      <thead>
+        <tr>
+          <th>HORARIO</th>
+          <th>LUN</th>
+          <th>MAR</th>
+          <th>MIÉ</th>
+          <th>JUE</th>
+          <th>VIE</th>
+          <th>SÁB</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>7:00 – 8:00</td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>8:00 – 9:00</td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>9:00 – 10:00</td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+        </tr>
+        <tr>
+          <td>10:00 – 11:00</td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+        </tr>
+        <tr>
+          <td>11:00 – 12:00</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><span class="class-chip">SALA</span></td>
+        </tr>
+        <tr>
+          <td>17:00 – 18:00</td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>18:00 – 19:00</td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>19:00 – 20:00</td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>20:00 – 21:00</td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td><span class="class-chip">SALA</span></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="text-align:center; margin-top:16px; font-size:12px; color:var(--gray); letter-spacing:1px;">SALA DE MUSCULACIÓN — LUNES A SÁBADO</p>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <h2 class="section-title">CONTACTANOS</h2>
+  <div class="section-line"></div>
+  <p class="contact-intro">
+    Contactanos directamente por WhatsApp y te respondemos a la brevedad.
+  </p>
+  <div class="contact-card">
+    <div class="contact-card-name">BRANCA Fitness Club</div>
+    <div class="contact-card-line">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Cerro Largo 1157 esq. Av. Libertador, Montevideo
+    </div>
+    <div class="contact-card-line">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.7 19.79 19.79 0 0 1 1.61 5.07 2 2 0 0 1 3.58 3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10.9a16 16 0 0 0 6.16 6.16l.97-.97a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      097 194 546
+    </div>
+    <br />
+    <a href="https://wa.me/59897194546?text=Hola!%20Quiero%20más%20información" class="btn btn-gold btn-full" target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.123 1.531 5.858L0 24l6.302-1.516A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.794 9.794 0 0 1-4.964-1.348l-.356-.211-3.741.9.929-3.626-.232-.372A9.774 9.774 0 0 1 2.182 12c0-5.42 4.398-9.818 9.818-9.818 5.42 0 9.818 4.398 9.818 9.818 0 5.42-4.398 9.818-9.818 9.818z"/></svg>
+      Contactar
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="PHOTO-2026-04-17-20-46-40.jpg" alt="BRANCA Fitness Club" style="height:64px; width:auto; object-fit:contain;" />
+  </div>
+
+  <div class="footer-social">
+    <a href="https://www.instagram.com/brancafitnessclub" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    </a>
+  </div>
+
+  <p class="footer-links-title">Links Rápidos</p>
+  <div class="footer-links">
+    <a href="#inicio">Inicio</a>
+    <a href="#planes">Planes</a>
+    <a href="#modalidades">Modalidades</a>
+    <a href="#ubicacion">Ubicación</a>
+    <a href="#horarios">Horarios</a>
+    <a href="#sobre">Sobre Nosotros</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+
+  <p class="footer-clases-title">Servicios</p>
+  <div class="footer-clases">
+    <span>SALA DE MUSCULACIÓN</span>
+    <span>ENTRENAMIENTO FUNCIONAL</span>
+    <span>ENTRENAMIENTO DEPORTIVO</span>
+    <span>NUTRICIÓN</span>
+    <span>FISIOTERAPIA</span>
+  </div>
+
+  <p class="footer-copy">© 2026 BRANCA FITNESS CLUB — TODOS LOS DERECHOS RESERVADOS</p>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a class="whatsapp-float" href="https://wa.me/59897194546?text=Hola!%20Quiero%20más%20información%20sobre%20BRANCA" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.123 1.531 5.858L0 24l6.302-1.516A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.794 9.794 0 0 1-4.964-1.348l-.356-.211-3.741.9.929-3.626-.232-.372A9.774 9.774 0 0 1 2.182 12c0-5.42 4.398-9.818 9.818-9.818 5.42 0 9.818 4.398 9.818 9.818 0 5.42-4.398 9.818-9.818 9.818z"/></svg>
+</a>
+
+<script>
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+
+  function closeMenu() {
+    hamburger.classList.remove('active');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Carousel
+  const track = document.getElementById('carouselTrack');
+  const slides = track.querySelectorAll('.carousel-slide');
+  const dotsContainer = document.getElementById('carouselDots');
+  let current = 0;
+
+  slides.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    dotsContainer.appendChild(dot);
+  });
+
+  function goTo(n) {
+    current = (n + slides.length) % slides.length;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    dotsContainer.querySelectorAll('.dot').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+
+  // Auto-advance carousel
+  setInterval(() => goTo(current + 1), 4000);
+</script>
+
+</body>
+</html>
