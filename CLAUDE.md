@@ -113,6 +113,8 @@ Antes de decir "listo":
 - ❌ **No tocar el `_headers`** sin avisar — la CSP está afinada y romperla puede tirar fuentes/imágenes.
 - ❌ **No pedirle al usuario que haga cosas técnicas** (subir archivos, copiar tokens, etc.). Lucas no es técnico. Usar tokens y resolver yo.
 - ❌ **No cambiar el dominio "brancafitnes" a "brancafitness"** — está registrado con una sola "s" a propósito.
+- ❌ **No confiar en Chrome headless para verificar mobile.** Headless Chrome IGNORA el viewport meta tag y renderiza a ~500-980px aunque pongas `--window-size=375,xxx`. Cualquier "clipping" visible en headless puede ser solo artefacto. Para verificación mobile real, abrir en Safari/Chrome con DevTools mobile mode o pedirle al usuario que confirme desde el celu.
+- ❌ **No usar `display: flex` en una section sin asegurar que `.container` hijo tenga `flex: 1 1 100%` o `width: 100%`.** Si no, el container toma su ancho intrínseco (el del contenido más ancho) y rompe el responsive. El hero (`#inicio`) ya tiene la fix aplicada.
 
 ---
 
