@@ -260,7 +260,7 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1400&q=80');
+      background-image: url('hero.jpg');
       background-size: cover;
       background-position: center;
       filter: brightness(0.25);
@@ -911,6 +911,86 @@
     .reveal-delay-4 { transition-delay: 0.4s; }
 
     /* ─────────────────────────────────────────
+       SOBRE — foto destacada
+    ───────────────────────────────────────── */
+    .sobre-photo {
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 48px;
+      border: 1px solid rgba(201,162,39,0.15);
+    }
+    .sobre-photo img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 0.9s ease;
+    }
+    .sobre-photo:hover img { transform: scale(1.04); }
+
+    /* Hover zoom en fotos reales */
+    .carousel-slide img,
+    .ubicacion-img { transition: transform 0.9s ease; }
+    .carousel-slide:hover img { transform: scale(1.05); }
+    .ubicacion-card:hover .ubicacion-img { transform: scale(1.05); }
+
+    /* ─────────────────────────────────────────
+       LIGHTBOX (ver foto en grande)
+    ───────────────────────────────────────── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(5,5,5,0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .lightbox.open { opacity: 1; pointer-events: auto; }
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 86vh;
+      border-radius: var(--radius);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.7);
+      transform: scale(0.96);
+      transition: transform 0.3s ease;
+    }
+    .lightbox.open img { transform: scale(1); }
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(201,162,39,0.4);
+      color: #fff;
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.25s, color 0.25s, transform 0.25s;
+    }
+    .lightbox-close:hover {
+      background: var(--gold);
+      color: #000;
+      transform: rotate(90deg);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .sobre-photo img, .carousel-slide img, .ubicacion-img { transition: none; }
+      .sobre-photo:hover img, .carousel-slide:hover img, .ubicacion-card:hover .ubicacion-img { transform: none; }
+    }
+
+    /* ─────────────────────────────────────────
        RESPONSIVE
     ───────────────────────────────────────── */
     @media (min-width: 640px) {
@@ -1022,7 +1102,7 @@
 
       <div class="plan-card reveal reveal-delay-1">
         <div class="plan-img-wrap">
-          <img src="40cb8827-fa9f-448d-98e7-773181c147c4.JPG" alt="Branca Básico" loading="lazy" />
+          <img src="musculacion.jpg" alt="Branca Básico — sala de musculación" loading="lazy" />
         </div>
         <div class="plan-body">
           <h3 class="plan-title">Branca Básico</h3>
@@ -1033,7 +1113,7 @@
 
       <div class="plan-card reveal reveal-delay-2">
         <div class="plan-img-wrap">
-          <img src="7d905b70-94b7-4241-9320-e70a08469348.JPG" alt="Branca Program" loading="lazy" />
+          <img src="spinning.jpg" alt="Branca Program — entrenamiento guiado" loading="lazy" />
         </div>
         <div class="plan-body">
           <h3 class="plan-title">Branca Program</h3>
@@ -1044,7 +1124,7 @@
 
       <div class="plan-card featured reveal reveal-delay-3">
         <div class="plan-img-wrap">
-          <img src="9e166f80-13c7-47aa-a6a3-a526533dc6b2.JPG" alt="Branca Personal" loading="lazy" />
+          <img src="mancuernas.jpg" alt="Branca Personal — entrenamiento personalizado" loading="lazy" />
           <span class="plan-badge">Popular</span>
         </div>
         <div class="plan-body">
@@ -1056,7 +1136,7 @@
 
       <div class="plan-card reveal reveal-delay-1">
         <div class="plan-img-wrap">
-          <img src="35b09f6f-f1e9-4e1d-a8c0-36ae2dfbe4bb.JPG" alt="Branca Nutrition" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1000&q=80" alt="Branca Nutrition — plan nutricional" loading="lazy" />
         </div>
         <div class="plan-body">
           <h3 class="plan-title">Branca Nutrition</h3>
@@ -1082,7 +1162,7 @@
         <div class="carousel-track" id="carouselTrack">
 
           <div class="carousel-slide">
-            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1000&q=80" alt="Sala de Musculación" loading="lazy" />
+            <img src="musculacion.jpg" alt="Sala de Musculación" loading="lazy" />
             <div class="carousel-overlay">
               <span class="carousel-tag">01 / 05</span>
               <div class="carousel-name">SALA DE MUSCULACIÓN</div>
@@ -1091,7 +1171,7 @@
           </div>
 
           <div class="carousel-slide">
-            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1000&q=80" alt="Entrenamiento Funcional" loading="lazy" />
+            <img src="mancuernas.jpg" alt="Entrenamiento Funcional" loading="lazy" />
             <div class="carousel-overlay">
               <span class="carousel-tag">02 / 05</span>
               <div class="carousel-name">ENTRENAMIENTO FUNCIONAL</div>
@@ -1100,7 +1180,7 @@
           </div>
 
           <div class="carousel-slide">
-            <img src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=1000&q=80" alt="Entrenamiento Deportivo" loading="lazy" />
+            <img src="spinning-sala.jpg" alt="Entrenamiento Deportivo" loading="lazy" />
             <div class="carousel-overlay">
               <span class="carousel-tag">03 / 05</span>
               <div class="carousel-name">ENTRENAMIENTO DEPORTIVO</div>
@@ -1140,6 +1220,9 @@
 <!-- ═══ SOBRE BRANCA ═══ -->
 <section id="sobre">
   <div class="container">
+    <div class="sobre-photo reveal">
+      <img src="sala-branca.jpg" alt="Interior de BRANCA Fitness Club con el lobo en neón" loading="lazy" />
+    </div>
     <div class="sobre-grid">
       <div class="sobre-text reveal">
         <div class="section-header">
@@ -1183,7 +1266,7 @@
       <div class="section-line"></div>
     </div>
     <div class="ubicacion-card reveal">
-      <img class="ubicacion-img" src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=1000&q=80" alt="BRANCA Fitness Club" loading="lazy" />
+      <img class="ubicacion-img" src="entrada.jpg" alt="Entrada de BRANCA Fitness Club" loading="lazy" />
       <div class="ubicacion-body">
         <div class="ubicacion-name">BRANCA Fitness Club</div>
         <div class="ubicacion-detail">
@@ -1550,7 +1633,34 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
   }, { threshold: 0.12 });
   revealEls.forEach(el => observer.observe(el));
+
+  // ── Lightbox: ver fotos reales del gym en grande
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const zoomImgs = document.querySelectorAll('.plan-img-wrap img[src$=".jpg"], .carousel-slide img[src$=".jpg"], .sobre-photo img, .ubicacion-img[src$=".jpg"]');
+  function openLightbox(src, alt) {
+    lightboxImg.src = src;
+    lightboxImg.alt = alt || '';
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  zoomImgs.forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => openLightbox(img.currentSrc || img.src, img.alt));
+  });
+  lightbox.addEventListener('click', e => { if (e.target !== lightboxImg) closeLightbox(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 </script>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">&times;</button>
+  <img id="lightboxImg" src="" alt="" />
+</div>
 
 </body>
 </html>

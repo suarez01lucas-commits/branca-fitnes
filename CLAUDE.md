@@ -53,15 +53,35 @@ Estilos en `<style>` inline al inicio. Variables CSS en `:root` (colores, radios
 - Max width: `1200px` (`--max-width`)
 - **Logo:** `logo-branca.png` (metálico dorado, fondo transparente, 500x284). Reemplazó al logo de texto.
 
-## 📦 Planes (actualizado 2026-05-21)
+## 📦 Planes (fotos actualizadas 2026-09-15)
 
 4 planes con prefijo "Branca":
-1. **Branca Básico** — img `40cb8827-...JPG`
-2. **Branca Program** — img `7d905b70-...JPG`
-3. **Branca Personal** — img `9e166f80-...JPG` (con badge "Popular")
-4. **Branca Nutrition** — img `35b09f6f-...JPG`
+1. **Branca Básico** — img `musculacion.jpg`
+2. **Branca Program** — img `spinning.jpg`
+3. **Branca Personal** — img `mancuernas.jpg` (con badge "Popular")
+4. **Branca Nutrition** — img stock Unsplash (nutrición) — ⏳ pendiente foto real
 
 En desktop grid es 4 columnas (>=1024px), 2 columnas en tablet (640-1024), 1 en mobile.
+
+## 🖼️ Fotos del gimnasio (2026-09-15)
+
+7 fotos reales del gym (originales `IMG_8125..8131.jpg`, 2-3MB c/u) optimizadas con
+`sips` a versiones web (~150-420KB). **Nombres semánticos usados en el sitio:**
+
+| Archivo web | Origen | Dónde se usa |
+|---|---|---|
+| `hero.jpg` | IMG_8125 (única horizontal) | fondo del Hero |
+| `sala-branca.jpg` | IMG_8128 (lobo neón) | banner "Sobre Branca" |
+| `entrada.jpg` | IMG_8126 (cinta + calle) | Ubicación |
+| `musculacion.jpg` | IMG_8130 (máquina pecho) | plan Básico + modalidad Musculación |
+| `mancuernas.jpg` | IMG_8129 (rack mancuernas) | plan Personal + modalidad Funcional |
+| `spinning.jpg` | IMG_8127 (bici azul) | plan Program |
+| `spinning-sala.jpg` | IMG_8131 (3 bicis) | modalidad Deportivo |
+
+- Optimizar SIEMPRE antes de usar: `sips -Z 1200 --setProperty formatOptions 74 in.jpg --out out.jpg` (hero `-Z 1800`).
+- **NO deployar los `IMG_86xx.jpg` originales** (pesan ~20MB juntos, no se usan). Excluirlos del ZIP.
+- ⏳ **Pendiente conseguir:** fotos con **gente entrenando** (dan calidez), **nutrición** y **fisioterapia** (secciones sin foto real), y **fachada exterior** real.
+- Lightbox: al tocar cualquier foto real (`img[src$=".jpg"]`) se abre en grande. Las de stock (Unsplash) no.
 
 ---
 

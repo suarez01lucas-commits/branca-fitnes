@@ -1,2 +1,6 @@
 .DS_Store
 *.log
+
+# Fotos originales sin optimizar (usar las versiones web: hero.jpg, etc.)
+IMG_*.jpg
+IMG_*.JPG
