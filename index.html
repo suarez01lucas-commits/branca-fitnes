@@ -424,7 +424,9 @@
     .plan-img-wrap { position: relative; overflow: hidden; }
     .plan-img-wrap img {
       width: 100%;
-      height: 200px;
+      height: auto;
+      display: block;
+      aspect-ratio: 9 / 16;
       object-fit: cover;
       transition: transform 0.5s ease;
     }
@@ -1023,26 +1025,42 @@
       line-height: 1.7;
       color: var(--gray-light);
     }
-    .galeria-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+    .galeria-slider { position: relative; }
+    .galeria-track {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      padding: 4px 4px 16px;
+      scrollbar-width: none;
     }
+    .galeria-track::-webkit-scrollbar { display: none; }
     .galeria-img {
-      width: 100%;
-      aspect-ratio: 4 / 5;
+      flex: 0 0 auto;
+      width: 280px;
+      max-width: 82vw;
+      height: 370px;
       object-fit: cover;
+      scroll-snap-align: center;
       border-radius: 12px;
       cursor: zoom-in;
       border: 1px solid rgba(255,255,255,0.06);
       transition: transform 0.4s ease, border-color 0.3s ease, filter 0.3s ease;
-      filter: brightness(0.92);
+      filter: brightness(0.9);
       display: block;
     }
     .galeria-img:hover {
       transform: translateY(-4px) scale(1.02);
       border-color: rgba(201,162,39,0.5);
       filter: brightness(1.05);
+    }
+    .galeria-controls {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 24px;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1057,7 +1075,6 @@
       .planes-grid { grid-template-columns: 1fr 1fr; }
       .contacto-grid { grid-template-columns: 1fr 1fr; }
       .footer-inner { grid-template-columns: 1fr 1fr; }
-      .galeria-grid { grid-template-columns: repeat(3, 1fr); }
     }
 
     @media (min-width: 768px) {
@@ -1072,7 +1089,6 @@
       .hamburger { display: none; }
       .planes-grid { grid-template-columns: repeat(4, 1fr); }
       .footer-inner { grid-template-columns: 2fr 1fr 1fr; }
-      .galeria-grid { grid-template-columns: repeat(4, 1fr); }
     }
 
   </style>
@@ -1166,7 +1182,7 @@
 
       <div class="plan-card reveal reveal-delay-1">
         <div class="plan-img-wrap">
-          <img src="musculacion.jpg" alt="Branca Básico — sala de musculación" loading="lazy" />
+          <img src="gente-basico.jpg" alt="Branca Básico" loading="lazy" />
         </div>
         <div class="plan-body">
           <h3 class="plan-title">Branca Básico</h3>
@@ -1177,7 +1193,7 @@
 
       <div class="plan-card reveal reveal-delay-2">
         <div class="plan-img-wrap">
-          <img src="spinning.jpg" alt="Branca Program — entrenamiento guiado" loading="lazy" />
+          <img src="gente-program.jpg" alt="Branca Program — entrenamiento guiado" loading="lazy" />
         </div>
         <div class="plan-body">
           <h3 class="plan-title">Branca Program</h3>
@@ -1188,7 +1204,7 @@
 
       <div class="plan-card featured reveal reveal-delay-3">
         <div class="plan-img-wrap">
-          <img src="mancuernas.jpg" alt="Branca Personal — entrenamiento personalizado" loading="lazy" />
+          <img src="gente-personal.jpg" alt="Branca Personal — entrenamiento personalizado" loading="lazy" />
           <span class="plan-badge">Popular</span>
         </div>
         <div class="plan-body">
@@ -1200,7 +1216,7 @@
 
       <div class="plan-card reveal reveal-delay-1">
         <div class="plan-img-wrap">
-          <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1000&q=80" alt="Branca Nutrition — plan nutricional" loading="lazy" />
+          <img src="gente-nutrition.jpg" alt="Branca Nutrition — plan nutricional" loading="lazy" />
         </div>
         <div class="plan-body">
           <h3 class="plan-title">Branca Nutrition</h3>
@@ -1289,19 +1305,21 @@
       <h2 class="section-title">NUESTRA <span>GALERÍA</span></h2>
       <div class="section-line"></div>
     </div>
-    <p class="galeria-intro reveal">Recorré nuestras instalaciones y el día a día de quienes entrenan en Branca. Tocá cualquier foto para verla en grande.</p>
-    <div class="galeria-grid reveal">
-      <img class="galeria-img" src="gente-basico.jpg"     alt="Alumno entrenando en bici en BRANCA" loading="lazy" />
-      <img class="galeria-img" src="sala-musculacion.jpg" alt="Sala de musculación completa" loading="lazy" />
-      <img class="galeria-img" src="gente-personal.jpg"   alt="Entrenamiento personalizado con profesora" loading="lazy" />
-      <img class="galeria-img" src="mancuernas.jpg"       alt="Rack de mancuernas" loading="lazy" />
-      <img class="galeria-img" src="gente-program.jpg"    alt="Alumno entrenando con disco" loading="lazy" />
-      <img class="galeria-img" src="spinning-sala.jpg"    alt="Sala de bicicletas de spinning" loading="lazy" />
-      <img class="galeria-img" src="gente-nutrition.jpg"  alt="Alumno entrenando con balón medicinal" loading="lazy" />
-      <img class="galeria-img" src="sala-branca.jpg"      alt="Interior con el lobo en neón de BRANCA" loading="lazy" />
-      <img class="galeria-img" src="spinning.jpg"         alt="Bicicletas Transformer de spinning" loading="lazy" />
-      <img class="galeria-img" src="musculacion.jpg"      alt="Máquina de musculación" loading="lazy" />
-      <img class="galeria-img" src="entrada.jpg"          alt="Zona de cardio junto a la entrada" loading="lazy" />
+    <p class="galeria-intro reveal">Recorré nuestras instalaciones. Deslizá para el costado y tocá cualquier foto para verla en grande.</p>
+    <div class="galeria-slider reveal">
+      <div class="galeria-track" id="galeriaTrack">
+        <img class="galeria-img" src="sala-musculacion.jpg" alt="Sala de musculación completa" loading="lazy" />
+        <img class="galeria-img" src="spinning-sala.jpg"    alt="Sala de bicicletas de spinning" loading="lazy" />
+        <img class="galeria-img" src="mancuernas.jpg"       alt="Rack de mancuernas" loading="lazy" />
+        <img class="galeria-img" src="sala-branca.jpg"      alt="Interior con el lobo en neón de BRANCA" loading="lazy" />
+        <img class="galeria-img" src="spinning.jpg"         alt="Bicicletas Transformer de spinning" loading="lazy" />
+        <img class="galeria-img" src="musculacion.jpg"      alt="Máquina de musculación" loading="lazy" />
+        <img class="galeria-img" src="entrada.jpg"          alt="Zona de cardio junto a la entrada" loading="lazy" />
+      </div>
+      <div class="galeria-controls">
+        <button class="carousel-btn" id="galPrev" aria-label="Fotos anteriores">&#8592;</button>
+        <button class="carousel-btn" id="galNext" aria-label="Fotos siguientes">&#8594;</button>
+      </div>
     </div>
   </div>
 </section>
@@ -1778,6 +1796,17 @@
     const d = lbTouchX - e.changedTouches[0].clientX;
     if (Math.abs(d) > 50) navLb(d > 0 ? 1 : -1);
   });
+
+  // ── Galería: flechas para deslizar el slider
+  const galTrack = document.getElementById('galeriaTrack');
+  if (galTrack) {
+    const galStep = () => {
+      const first = galTrack.querySelector('.galeria-img');
+      return (first ? first.offsetWidth : 280) + 14;
+    };
+    document.getElementById('galPrev').addEventListener('click', () => galTrack.scrollBy({ left: -galStep(), behavior: 'smooth' }));
+    document.getElementById('galNext').addEventListener('click', () => galTrack.scrollBy({ left: galStep(), behavior: 'smooth' }));
+  }
 </script>
 
 <!-- Lightbox -->
