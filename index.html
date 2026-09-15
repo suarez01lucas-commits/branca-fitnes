@@ -424,10 +424,10 @@
     .plan-img-wrap { position: relative; overflow: hidden; }
     .plan-img-wrap img {
       width: 100%;
-      height: auto;
+      height: 250px;
       display: block;
-      aspect-ratio: 9 / 16;
       object-fit: cover;
+      object-position: center 38%;
       transition: transform 0.5s ease;
     }
     .plan-card:hover .plan-img-wrap img { transform: scale(1.05); }
@@ -1030,8 +1030,7 @@
       display: flex;
       gap: 14px;
       overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
+      scroll-snap-type: x proximity;
       -webkit-overflow-scrolling: touch;
       padding: 4px 4px 16px;
       scrollbar-width: none;
@@ -1043,7 +1042,7 @@
       max-width: 82vw;
       height: 370px;
       object-fit: cover;
-      scroll-snap-align: center;
+      scroll-snap-align: start;
       border-radius: 12px;
       cursor: zoom-in;
       border: 1px solid rgba(255,255,255,0.06);
@@ -1664,6 +1663,14 @@
   <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.123 1.531 5.858L0 24l6.302-1.516A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.794 9.794 0 0 1-4.964-1.348l-.356-.211-3.741.9.929-3.626-.232-.372A9.774 9.774 0 0 1 2.182 12c0-5.42 4.398-9.818 9.818-9.818 5.42 0 9.818 4.398 9.818 9.818 0 5.42-4.398 9.818-9.818 9.818z"/></svg>
 </a>
 
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">&times;</button>
+  <button class="lightbox-nav lightbox-prev" id="lbPrev" aria-label="Foto anterior">&#8249;</button>
+  <img id="lightboxImg" src="" alt="" />
+  <button class="lightbox-nav lightbox-next" id="lbNext" aria-label="Foto siguiente">&#8250;</button>
+</div>
+
 <script>
   // ── Header scroll effect
   const header = document.getElementById('header');
@@ -1802,20 +1809,28 @@
   if (galTrack) {
     const galStep = () => {
       const first = galTrack.querySelector('.galeria-img');
-      return (first ? first.offsetWidth : 280) + 14;
+      const one = (first ? first.offsetWidth : 280) + 14;
+      // avanzar ~una pantalla, mínimo una foto (se adapta a compu/celu)
+      return Math.max(one, Math.round(galTrack.clientWidth * 0.9));
     };
-    document.getElementById('galPrev').addEventListener('click', () => galTrack.scrollBy({ left: -galStep(), behavior: 'smooth' }));
-    document.getElementById('galNext').addEventListener('click', () => galTrack.scrollBy({ left: galStep(), behavior: 'smooth' }));
+    // Animación propia (no dependemos de scroll-behavior:smooth, que falla en Safari)
+    function galScroll(amount) {
+      const start = galTrack.scrollLeft;
+      const max = galTrack.scrollWidth - galTrack.clientWidth;
+      const target = Math.max(0, Math.min(max, start + amount));
+      const t0 = performance.now();
+      const dur = 350;
+      (function step(now) {
+        const p = Math.min(1, (now - t0) / dur);
+        const ease = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+        galTrack.scrollLeft = start + (target - start) * ease;
+        if (p < 1) requestAnimationFrame(step);
+      })(t0);
+    }
+    document.getElementById('galPrev').addEventListener('click', () => galScroll(-galStep()));
+    document.getElementById('galNext').addEventListener('click', () => galScroll(galStep()));
   }
 </script>
-
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada">
-  <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">&times;</button>
-  <button class="lightbox-nav lightbox-prev" id="lbPrev" aria-label="Foto anterior">&#8249;</button>
-  <img id="lightboxImg" src="" alt="" />
-  <button class="lightbox-nav lightbox-next" id="lbNext" aria-label="Foto siguiente">&#8250;</button>
-</div>
 
 </body>
 </html>
