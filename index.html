@@ -984,6 +984,66 @@
       color: #000;
       transform: rotate(90deg);
     }
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(201,162,39,0.4);
+      color: #fff;
+      font-size: 30px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.25s, color 0.25s;
+      z-index: 2;
+    }
+    .lightbox-nav:hover { background: var(--gold); color: #000; }
+    .lightbox-prev { left: 16px; }
+    .lightbox-next { right: 16px; }
+    .lightbox:not(.has-nav) .lightbox-nav { display: none; }
+
+    /* ─────────────────────────────────────────
+       GALERÍA
+    ───────────────────────────────────────── */
+    #galeria {
+      padding: 100px 0;
+      background: var(--black);
+    }
+    .galeria-intro {
+      text-align: center;
+      max-width: 620px;
+      margin: -8px auto 40px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--gray-light);
+    }
+    .galeria-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .galeria-img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      border-radius: 12px;
+      cursor: zoom-in;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: transform 0.4s ease, border-color 0.3s ease, filter 0.3s ease;
+      filter: brightness(0.92);
+      display: block;
+    }
+    .galeria-img:hover {
+      transform: translateY(-4px) scale(1.02);
+      border-color: rgba(201,162,39,0.5);
+      filter: brightness(1.05);
+    }
 
     @media (prefers-reduced-motion: reduce) {
       .sobre-photo img, .carousel-slide img, .ubicacion-img { transition: none; }
@@ -997,6 +1057,7 @@
       .planes-grid { grid-template-columns: 1fr 1fr; }
       .contacto-grid { grid-template-columns: 1fr 1fr; }
       .footer-inner { grid-template-columns: 1fr 1fr; }
+      .galeria-grid { grid-template-columns: repeat(3, 1fr); }
     }
 
     @media (min-width: 768px) {
@@ -1011,6 +1072,7 @@
       .hamburger { display: none; }
       .planes-grid { grid-template-columns: repeat(4, 1fr); }
       .footer-inner { grid-template-columns: 2fr 1fr 1fr; }
+      .galeria-grid { grid-template-columns: repeat(4, 1fr); }
     }
 
   </style>
@@ -1027,6 +1089,7 @@
     <ul class="nav-links">
       <li><a href="#planes">Planes</a></li>
       <li><a href="#modalidades">Modalidades</a></li>
+      <li><a href="#galeria">Galería</a></li>
       <li><a href="#sobre">Nosotros</a></li>
       <li><a href="#ubicacion">Ubicación</a></li>
       <li><a href="#horarios">Horarios</a></li>
@@ -1047,6 +1110,7 @@
 <nav class="mobile-menu" id="mobileMenu" aria-label="Menú móvil">
   <a href="#planes"      onclick="closeMenu()">Planes</a>
   <a href="#modalidades" onclick="closeMenu()">Modalidades</a>
+  <a href="#galeria"     onclick="closeMenu()">Galería</a>
   <a href="#sobre"       onclick="closeMenu()">Nosotros</a>
   <a href="#ubicacion"   onclick="closeMenu()">Ubicación</a>
   <a href="#horarios"    onclick="closeMenu()">Horarios</a>
@@ -1213,6 +1277,31 @@
         <div class="carousel-dots" id="carouselDots"></div>
         <button class="carousel-btn" id="nextBtn" aria-label="Siguiente">&#8594;</button>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GALERÍA ═══ -->
+<section id="galeria">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-tag">Conocé el club</p>
+      <h2 class="section-title">NUESTRA <span>GALERÍA</span></h2>
+      <div class="section-line"></div>
+    </div>
+    <p class="galeria-intro reveal">Recorré nuestras instalaciones y el día a día de quienes entrenan en Branca. Tocá cualquier foto para verla en grande.</p>
+    <div class="galeria-grid reveal">
+      <img class="galeria-img" src="gente-basico.jpg"     alt="Alumno entrenando en bici en BRANCA" loading="lazy" />
+      <img class="galeria-img" src="sala-musculacion.jpg" alt="Sala de musculación completa" loading="lazy" />
+      <img class="galeria-img" src="gente-personal.jpg"   alt="Entrenamiento personalizado con profesora" loading="lazy" />
+      <img class="galeria-img" src="mancuernas.jpg"       alt="Rack de mancuernas" loading="lazy" />
+      <img class="galeria-img" src="gente-program.jpg"    alt="Alumno entrenando con disco" loading="lazy" />
+      <img class="galeria-img" src="spinning-sala.jpg"    alt="Sala de bicicletas de spinning" loading="lazy" />
+      <img class="galeria-img" src="gente-nutrition.jpg"  alt="Alumno entrenando con balón medicinal" loading="lazy" />
+      <img class="galeria-img" src="sala-branca.jpg"      alt="Interior con el lobo en neón de BRANCA" loading="lazy" />
+      <img class="galeria-img" src="spinning.jpg"         alt="Bicicletas Transformer de spinning" loading="lazy" />
+      <img class="galeria-img" src="musculacion.jpg"      alt="Máquina de musculación" loading="lazy" />
+      <img class="galeria-img" src="entrada.jpg"          alt="Zona de cardio junto a la entrada" loading="lazy" />
     </div>
   </div>
 </section>
@@ -1525,6 +1614,7 @@
           <li><a href="#inicio">Inicio</a></li>
           <li><a href="#planes">Planes</a></li>
           <li><a href="#modalidades">Modalidades</a></li>
+          <li><a href="#galeria">Galería</a></li>
           <li><a href="#ubicacion">Ubicación</a></li>
           <li><a href="#horarios">Horarios</a></li>
           <li><a href="#contacto">Contacto</a></li>
@@ -1634,13 +1724,25 @@
   }, { threshold: 0.12 });
   revealEls.forEach(el => observer.observe(el));
 
-  // ── Lightbox: ver fotos reales del gym en grande
+  // ── Lightbox: ver fotos en grande + navegar la galería
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
-  const zoomImgs = document.querySelectorAll('.plan-img-wrap img[src$=".jpg"], .carousel-slide img[src$=".jpg"], .sobre-photo img, .ubicacion-img[src$=".jpg"]');
-  function openLightbox(src, alt) {
-    lightboxImg.src = src;
-    lightboxImg.alt = alt || '';
+  const galleryImgs = Array.from(document.querySelectorAll('.galeria-img'));
+  const singleImgs = document.querySelectorAll('.plan-img-wrap img[src$=".jpg"], .carousel-slide img[src$=".jpg"], .sobre-photo img, .ubicacion-img[src$=".jpg"]');
+  let lbList = [];
+  let lbIndex = 0;
+
+  function renderLb() {
+    const img = lbList[lbIndex];
+    if (!img) return;
+    lightboxImg.src = img.currentSrc || img.src;
+    lightboxImg.alt = img.alt || '';
+  }
+  function openLightbox(list, i) {
+    lbList = list;
+    lbIndex = i;
+    lightbox.classList.toggle('has-nav', lbList.length > 1);
+    renderLb();
     lightbox.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -1648,18 +1750,42 @@
     lightbox.classList.remove('open');
     document.body.style.overflow = '';
   }
-  zoomImgs.forEach(img => {
-    img.style.cursor = 'zoom-in';
-    img.addEventListener('click', () => openLightbox(img.currentSrc || img.src, img.alt));
+  function navLb(dir) {
+    if (lbList.length < 2) return;
+    lbIndex = (lbIndex + dir + lbList.length) % lbList.length;
+    renderLb();
+  }
+  galleryImgs.forEach((img, i) => {
+    img.addEventListener('click', () => openLightbox(galleryImgs, i));
   });
-  lightbox.addEventListener('click', e => { if (e.target !== lightboxImg) closeLightbox(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  singleImgs.forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => openLightbox([img], 0));
+  });
+  document.getElementById('lbPrev').addEventListener('click', e => { e.stopPropagation(); navLb(-1); });
+  document.getElementById('lbNext').addEventListener('click', e => { e.stopPropagation(); navLb(1); });
+  document.getElementById('lightboxClose').addEventListener('click', e => { e.stopPropagation(); closeLightbox(); });
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', e => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    else if (e.key === 'ArrowRight') navLb(1);
+    else if (e.key === 'ArrowLeft') navLb(-1);
+  });
+  let lbTouchX = 0;
+  lightbox.addEventListener('touchstart', e => { lbTouchX = e.touches[0].clientX; }, { passive: true });
+  lightbox.addEventListener('touchend', e => {
+    const d = lbTouchX - e.changedTouches[0].clientX;
+    if (Math.abs(d) > 50) navLb(d > 0 ? 1 : -1);
+  });
 </script>
 
 <!-- Lightbox -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada">
   <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">&times;</button>
+  <button class="lightbox-nav lightbox-prev" id="lbPrev" aria-label="Foto anterior">&#8249;</button>
   <img id="lightboxImg" src="" alt="" />
+  <button class="lightbox-nav lightbox-next" id="lbNext" aria-label="Foto siguiente">&#8250;</button>
 </div>
 
 </body>
