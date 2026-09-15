@@ -83,6 +83,20 @@ En desktop grid es 4 columnas (>=1024px), 2 columnas en tablet (640-1024), 1 en 
 - ⏳ **Pendiente conseguir:** fotos con **gente entrenando** (dan calidez), **nutrición** y **fisioterapia** (secciones sin foto real), y **fachada exterior** real.
 - Lightbox: al tocar cualquier foto real (`img[src$=".jpg"]`) se abre en grande. Las de stock (Unsplash) no.
 
+## 🖼️ Galería (sección `#galeria`, 2026-09-15)
+
+Sección deslizable entre Modalidades y Sobre. Grilla responsive 2/3/4 columnas.
+El lightbox navega entre las fotos de la galería (flechas, teclado ← →, swipe).
+
+- **4 fotos con gente** (`gente-basico/program/personal/nutrition.jpg`): recuperadas
+  del historial de git (eran los promo-cards viejos de los planes, con texto y logo
+  BRANCA incrustados). Muestran alumnos entrenando → aportan la calidez que faltaba.
+  Recuperar desde historial: `git show 9bcf25d:<id>.JPG > file` (IDs viejos: 40cb8827,
+  7d905b70, 9e166f80, 35b09f6f).
+- Resto de la galería reutiliza las fotos de instalaciones (`sala-musculacion`,
+  `mancuernas`, `spinning-sala`, `sala-branca`, `spinning`, `musculacion`, `entrada`).
+- La galería es el mejor lugar para meter fotos nuevas con gente cuando lleguen.
+
 ---
 
 ## 📞 Datos del gym
