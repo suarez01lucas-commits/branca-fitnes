@@ -55,11 +55,15 @@ Estilos en `<style>` inline al inicio. Variables CSS en `:root` (colores, radios
 
 ## 📦 Planes (fotos actualizadas 2026-09-15)
 
-4 planes con prefijo "Branca":
-1. **Branca Básico** — img `musculacion.jpg`
-2. **Branca Program** — img `spinning.jpg`
-3. **Branca Personal** — img `mancuernas.jpg` (con badge "Popular")
-4. **Branca Nutrition** — img stock Unsplash (nutrición) — ⏳ pendiente foto real
+4 planes con prefijo "Branca". Cada uno usa su promo-card con gente (trae el nombre
+del plan incrustado). `plan-img-wrap img` muestra la foto completa (aspect-ratio 9/16):
+1. **Branca Básico** — img `gente-basico.jpg`
+2. **Branca Program** — img `gente-program.jpg`
+3. **Branca Personal** — img `gente-personal.jpg` (con badge "Popular")
+4. **Branca Nutrition** — img `gente-nutrition.jpg`
+
+⚠️ Las `gente-*.jpg` van en PLANES, no en la galería (Lucas, 2026-09-15): tienen texto
+de plan incrustado, no sirven como fotos "limpias" de instalaciones.
 
 En desktop grid es 4 columnas (>=1024px), 2 columnas en tablet (640-1024), 1 en mobile.
 
@@ -85,17 +89,15 @@ En desktop grid es 4 columnas (>=1024px), 2 columnas en tablet (640-1024), 1 en 
 
 ## 🖼️ Galería (sección `#galeria`, 2026-09-15)
 
-Sección deslizable entre Modalidades y Sobre. Grilla responsive 2/3/4 columnas.
+Sección entre Modalidades y Sobre. **Slider horizontal deslizable** (`.galeria-track`,
+flex + scroll-snap-x): swipe táctil + flechas (`#galPrev`/`#galNext` hacen `scrollBy`).
 El lightbox navega entre las fotos de la galería (flechas, teclado ← →, swipe).
 
-- **4 fotos con gente** (`gente-basico/program/personal/nutrition.jpg`): recuperadas
-  del historial de git (eran los promo-cards viejos de los planes, con texto y logo
-  BRANCA incrustados). Muestran alumnos entrenando → aportan la calidez que faltaba.
-  Recuperar desde historial: `git show 9bcf25d:<id>.JPG > file` (IDs viejos: 40cb8827,
-  7d905b70, 9e166f80, 35b09f6f).
-- Resto de la galería reutiliza las fotos de instalaciones (`sala-musculacion`,
-  `mancuernas`, `spinning-sala`, `sala-branca`, `spinning`, `musculacion`, `entrada`).
-- La galería es el mejor lugar para meter fotos nuevas con gente cuando lleguen.
+- Solo fotos **limpias de instalaciones** (7): `sala-musculacion`, `spinning-sala`,
+  `mancuernas`, `sala-branca`, `spinning`, `musculacion`, `entrada`. Sin promo-cards.
+- Las `gente-*.jpg` (promo-cards con texto) NO van acá → van en Planes.
+- Fotos con gente recuperadas del historial: `git show 9bcf25d:<id>.JPG > file`
+  (IDs viejos: 40cb8827, 7d905b70, 9e166f80, 35b09f6f).
 
 ---
 
